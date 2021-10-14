@@ -1,0 +1,77 @@
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40rem;
+  border-radius: 15px 15px;
+  background-image: linear-gradient( 125deg, black, white, grey, white, rgb(78, 78, 78));
+}
+
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  width: 100%;
+  height: auto;
+  min-height: 50px;
+  border: 1px solid black;
+}  
+
+.controls h1 {
+  text-transform: uppercase;
+  color: #575757;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.value {
+  border: 2px solid grey;
+  font-size: 2rem;
+  color: red;
+  margin: 10px;
+  font-weight: bold;
+  padding: .5rem;
+  margin-left: 20px;
+  background-color: black;
+  text-align: center;
+  vertical-align: middle;
+  width: 110px;
+  height: auto;
+}
+
+
+
+button {
+  background-color: rgba(1, 65, 90, 1.0);
+  border-color: grey;
+  border: 2px solid rgba(200,200,200, 0.0);
+  padding: 10px
+}
+
+button.inactive {
+  background-color: rgba(1, 65, 90, 1.0);
+  border-color: grey;
+  border: 2px solid rgba(200,200,200, 0.0);
+  padding: 10px;
+  opacity: 0.5;
+}
+
+button:hover {
+  background-color: rgba(1, 65, 90, .7);
+  border: 2px solid white;
+}
+
+.controls button {
+  margin: 0;
+}
+
+.controlsDivider {
+  /* border: 1px solid rgb(75, 75, 75); */
+  height: 40px;
+  width: 3px;
+  background-color: rgba(75, 75, 75, 0.3);
+  margin: 10px 15px;
+}

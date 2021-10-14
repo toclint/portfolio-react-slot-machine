@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  color: #252525;
+  background-color: #252525;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  background-color: #3c0080;
+  border: 1px solid #3c0080;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+}
+
+button:hover,
+button:active {
+  background-color: #5b14ac;
+  border-color: #5b14ac;
+}
+
+
+.wonON {
+  font-size: 1.5rem;
+  color: rgb(116, 4, 4);
+  margin: 10px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 35px rgb(0, 10, 50), 0 0 15px rgb(0, 50,200);
+  animation: mymove 2s infinite;
+}
+
+@keyframes mymove {
+  50% {
+    text-shadow: 1px 1px 2px black, 0 0 5px rgb(0, 10, 50), 0 0 5px rgb(0, 50,200);
+  }
+}
+
+.wonOFF {
+  font-size: 1.5rem;
+  color: rgba(116, 4, 4, 0.0);
+  margin: 10px;
+  font-weight: bold;
+  opacity: 0.1;
+
+}
+
+.inactive {
+  opacity: 0.5;
+}
