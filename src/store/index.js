@@ -2,7 +2,7 @@
 import {createStore} from 'redux';
 import { ActionTypes } from '../components/EventConstants';
 
-const startingBalance = 990;
+const startingBalance = 100;
 const initialState = {counter: startingBalance, showCounter: true, showWin: false }
 
 const counterReducer = (state = initialState, action) => {

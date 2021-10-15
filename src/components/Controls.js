@@ -3,6 +3,7 @@ import { ActionTypes } from "./EventConstants";
 import ControlsStyles from "./Controls.module.css";
 import { gsap } from 'gsap';
 import {useState} from 'react';
+import { GetAwardValue } from "./Awards";
 
 // import { Component } from 'react'; //  only needed for class based version of Counter below
 const readoutdata = { balance: 0};
@@ -40,10 +41,26 @@ const Controls = () => {
   document.addEventListener("spin-complete", (event) => {
     event.stopImmediatePropagation();
     event.preventDefault();
-    setWinnings(2000);
-    console.log("Spin animation complete")
-    updateBalance();
+    // setWinnings(2000);
+    console.log("Spin animation complete " + winnings)
+    if( winnings > 0 ){
+      updateBalance();
+      turnOnWon();
+    } else {
+      dispatch({type: ActionTypes.SHOW_CONTROLS });
+      turnOffWon();
+    }
+    
+      
   });
+
+  const turnOnWon = () => {
+    setWon(true)
+  };
+
+  const turnOffWon = () => {
+    setWon(false)
+  };
 
   const incrementHandler = () => {
     dispatch({ type: ActionTypes.INCREMENT });
@@ -66,15 +83,13 @@ const Controls = () => {
       balance: (counter + awardAmount.dollars), 
       onUpdate: function() {
         incrementHandler();
-        
-        // roRef.innerHTML = readoutdata.balance.toFixed(0);
       },
       onComplete: function() {
+        turnOnWon();
         dispatch({type: ActionTypes.SHOW_CONTROLS })
       }
 
     });
-    setWon(true);
     
   };
 
@@ -82,15 +97,27 @@ const Controls = () => {
 
   const spinReels = () => {
     dispatch({type: ActionTypes.HIDE_CONTROLS })
-    setWon(false)
+    turnOffWon();
     let reel1Degrees;
     let reel2Degrees;
     let reel3Degrees;
 
-    newReel1Target.degrees = ReelsData[ Math.floor(Math.random()*10) ].degrees;
-    newReel2Target.degrees = ReelsData[ Math.floor(Math.random()*10) ].degrees;
-    newReel3Target.degrees = ReelsData[ Math.floor(Math.random()*10) ].degrees;
-
+    let reel1Object = ReelsData[ Math.floor(Math.random()*10) ];
+    let reel2Object = ReelsData[ Math.floor(Math.random()*10) ];
+    let reel3Object = ReelsData[ Math.floor(Math.random()*10) ];
+    newReel1Target.degrees = reel1Object.degrees;
+    newReel2Target.degrees = reel2Object.degrees;
+    newReel3Target.degrees = reel3Object.degrees;
+    let reelsString = reel1Object.symbol + reel2Object.symbol + reel3Object.symbol;
+    console.log( "reels string is : " + reelsString);
+    //console.log("Got reward back: " + GetAwardValue(reelsString) );
+    let winValue = GetAwardValue(reelsString)
+    if( winValue > 0 ){
+      setWinnings(GetAwardValue(reelsString));
+      turnOnWon();
+    }
+    
+    
     if( spins.totalSpins > 0 ){
       reel1Degrees = (360 - lastReel1.degrees) + TARGET_REEL_SPINS + newReel1Target.degrees;
       reel2Degrees = (360 - lastReel2.degrees) + TARGET_REEL_SPINS + newReel2Target.degrees;
