@@ -28,39 +28,38 @@ const ReelsData = [
   {symbol:"T7", description:"Three Sevens", degrees:303}
 ]  
 
+const lastSpinState = { value: "OLOLOL"}
+
 const Controls = () => {
   
   const [won, setWon] = useState(false);
   const [winnings, setWinnings] = useState(0);
+  const [lastReels, setLastReels] = useState("");
   const dispatch = useDispatch();
   const counter = useSelector((state) => state.counter);
   const show = useSelector((state) => state.showCounter);
   const winState = useSelector((state) => state.showWin);
+  
   const awardAmount = {dollars:0};
 
   document.addEventListener("spin-complete", (event) => {
     event.stopImmediatePropagation();
     event.preventDefault();
-    // setWinnings(2000);
-    console.log("Spin animation complete " + winnings)
-    if( winnings > 0 ){
+    console.log("Spin animation complete " + winnings + " lastReels: " + lastSpinState.value);
+    let winValue = GetAwardValue(lastSpinState.value);
+    console.log("on spin complete winnings: " + winValue )
+    if( winValue > 0 ){
+      setWinnings(winValue);
+      awardAmount.dollars = winValue;
+      setWon(true);
       updateBalance();
-      turnOnWon();
     } else {
+      setWon(false);
       dispatch({type: ActionTypes.SHOW_CONTROLS });
-      turnOffWon();
     }
-    
-      
+
+        
   });
-
-  const turnOnWon = () => {
-    setWon(true)
-  };
-
-  const turnOffWon = () => {
-    setWon(false)
-  };
 
   const incrementHandler = () => {
     dispatch({ type: ActionTypes.INCREMENT });
@@ -85,19 +84,19 @@ const Controls = () => {
         incrementHandler();
       },
       onComplete: function() {
-        turnOnWon();
         dispatch({type: ActionTypes.SHOW_CONTROLS })
       }
 
     });
     
+
   };
 
 
 
   const spinReels = () => {
+    setWinnings(0)
     dispatch({type: ActionTypes.HIDE_CONTROLS })
-    turnOffWon();
     let reel1Degrees;
     let reel2Degrees;
     let reel3Degrees;
@@ -111,13 +110,8 @@ const Controls = () => {
     let reelsString = reel1Object.symbol + reel2Object.symbol + reel3Object.symbol;
     console.log( "reels string is : " + reelsString);
     //console.log("Got reward back: " + GetAwardValue(reelsString) );
-    let winValue = GetAwardValue(reelsString)
-    if( winValue > 0 ){
-      setWinnings(GetAwardValue(reelsString));
-      turnOnWon();
-    }
-    
-    
+    lastSpinState.value = reelsString;
+        
     if( spins.totalSpins > 0 ){
       reel1Degrees = (360 - lastReel1.degrees) + TARGET_REEL_SPINS + newReel1Target.degrees;
       reel2Degrees = (360 - lastReel2.degrees) + TARGET_REEL_SPINS + newReel2Target.degrees;
@@ -141,8 +135,7 @@ const Controls = () => {
   return (
       <div className={ControlsStyles.wrapper}>
         <main className={ControlsStyles.controls}>
-        <div className={won ? "wonON" : "wonOFF"}>YOU WIN ${ winnings}</div>
-
+          <div className={"wonON"}>{ winnings > 0 ? "YOU WIN $" + winnings : ""}</div>
           <div className={ControlsStyles.controlsDivider} />
           {show && <button onClick={spinReels}>SPIN</button>}
           {!show && <button className="inactive">SPIN</button>}
