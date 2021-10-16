@@ -43,22 +43,35 @@
         margin:0;
       }      
 
-      .chrome-panel, .unitygl {
+      .chrome-panel {
         position:absolute;
         width: 73%;
         height: auto;
       }
 
+      .chrome-panel {
+        display:none;
+      }
+
       .unitygl {
-        width: 62%;
-        margin-top: 12%;
+        width: 80%;
+        aspect-ratio: 16 / 9;
+        /* margin-top: 12%; */
       }   
   
       .react-controls {
-        position: fixed;
-        bottom: 50%;
-        margin: 0;
+        width: 960px;
+        height: auto;
+        aspect-ratio: 16 / 9;
         z-index: 200;
+        margin: 0;
+        margin-top: -20px;
+      }
+/**
+      @media screen and (min-width: 600px){
+        .react-controls {
+           bottom: 50%;
+        }
       }
 
       @media screen and (min-width: 700px){
@@ -67,41 +80,45 @@
         }
       }
 
-      @media screen and (min-width: 700px){
-        .react-controls {
-           bottom: 40%;
-        }
-      }
-
       @media screen and (min-width: 800px){
         .react-controls {
-           bottom: 35%;
+           bottom: 40%;
         }
       }      
       
       @media screen and (min-width: 900px){
         .react-controls {
-           bottom: 30%;
+           bottom: 35%;
         }
       }
 
       @media screen and (min-width: 1000px){
         .react-controls {
-           bottom: 25%;
+           bottom: 30%;
         }
       }
 
       @media screen and (min-width: 1050px){
 
         .chrome-panel {
+          display:none;
           width: 760px;
         }
 
         .unitygl {
-          width: 645px;
+          width: 640px;
+          height: 330px;
+          margin-top: 120px;
         }   
 
-      }      
+      }  
+      
+      @media only screen and (min-device-width: 768px) and (orientation : landscape){
+          .react-controls {
+            bottom: 5px;
+          }
+      }
+      */
      
     </style>
     <title>React App</title>
@@ -116,7 +133,6 @@
     
     <div class="slots-wrapper">
         <canvas id="unity-canvas" class="unitygl"></canvas>
-        <img class="chrome-panel" src="./ReelsOverlayPanel.png"/>
         <div id="root" class="react-controls"></div>
     </div>
 
@@ -134,10 +150,12 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
       }
 
+      const reelsExtension = ".gz";
+
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "./ReelsWebglReact.data",
-        frameworkUrl: "./ReelsWebglReact.framework.js",
-        codeUrl: "./ReelsWebglReact.wasm",
+        dataUrl: "./ReelsWebglReact.data" + reelsExtension,
+        frameworkUrl: "./ReelsWebglReact.framework.js" + reelsExtension,
+        codeUrl: "./ReelsWebglReact.wasm" + reelsExtension,
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Slot Machine Demo",
