@@ -13,11 +13,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
   width: 100%;
   height: auto;
   min-height: 50px;
-  border: 1px solid black;
 }  
 
 .controls h1 {

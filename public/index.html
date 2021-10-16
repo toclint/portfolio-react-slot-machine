@@ -27,30 +27,82 @@
 
     <style>
 
-      .chrome-panel, .unitygl {
-        position:absolute !important;
+      body {
+        background-color: black;
       }
 
-      .slot-wrapper {
+      .slots-wrapper {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
         background-color: black;
         width: 100%;
         height: auto;
-        min-height: 600px;
+        min-height: 300px;
         border: 1px solid black;
+        margin:0;
+      }      
+
+      .chrome-panel, .unitygl {
+        position:absolute;
+        width: 73%;
+        height: auto;
       }
 
-      #readout {
-        display:block;
+      .unitygl {
+        width: 62%;
+        margin-top: 12%;
+      }   
+  
+      .react-controls {
         position: fixed;
-        bottom: 77px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: x-large;
-        color: aqua;
-        font-weight: bold;
+        bottom: 50%;
+        margin: 0;
+        z-index: 200;
       }
+
+      @media screen and (min-width: 700px){
+        .react-controls {
+           bottom: 45%;
+        }
+      }
+
+      @media screen and (min-width: 700px){
+        .react-controls {
+           bottom: 40%;
+        }
+      }
+
+      @media screen and (min-width: 800px){
+        .react-controls {
+           bottom: 35%;
+        }
+      }      
+      
+      @media screen and (min-width: 900px){
+        .react-controls {
+           bottom: 30%;
+        }
+      }
+
+      @media screen and (min-width: 1000px){
+        .react-controls {
+           bottom: 25%;
+        }
+      }
+
+      @media screen and (min-width: 1050px){
+
+        .chrome-panel {
+          width: 760px;
+        }
+
+        .unitygl {
+          width: 645px;
+        }   
+
+      }      
+     
     </style>
     <title>React App</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
@@ -62,10 +114,13 @@
 
 
     
-    <div class="slot-wrapper">
-      <canvas id="unity-canvas" class="unitygl" width=960 height=600 style="width: 960px; height: 600px; background: #231F20"></canvas>
-      <img class="chrome-panel" width=960 height=600 src="./ReelsOverlayPanel.png"/> 
+    <div class="slots-wrapper">
+        <canvas id="unity-canvas" class="unitygl"></canvas>
+        <img class="chrome-panel" src="./ReelsOverlayPanel.png"/>
+        <div id="root" class="react-controls"></div>
     </div>
+
+
 
     <script src="./ReelsWebglReact.loader.js"></script>   
     <script>
@@ -87,7 +142,7 @@
         companyName: "DefaultCompany",
         productName: "Slot Machine Demo",
         productVersion: "0.2",
-        matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        matchWebGLToCanvasSize: true, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       }).then((unityInstance) => {   
         console.log("********** " );
@@ -95,7 +150,7 @@
        });
 </script>
 
-    <div id="root"></div>
+    
 
 
 
