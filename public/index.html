@@ -67,58 +67,7 @@
         margin: 0;
         margin-top: -20px;
       }
-/**
-      @media screen and (min-width: 600px){
-        .react-controls {
-           bottom: 50%;
-        }
-      }
 
-      @media screen and (min-width: 700px){
-        .react-controls {
-           bottom: 45%;
-        }
-      }
-
-      @media screen and (min-width: 800px){
-        .react-controls {
-           bottom: 40%;
-        }
-      }      
-      
-      @media screen and (min-width: 900px){
-        .react-controls {
-           bottom: 35%;
-        }
-      }
-
-      @media screen and (min-width: 1000px){
-        .react-controls {
-           bottom: 30%;
-        }
-      }
-
-      @media screen and (min-width: 1050px){
-
-        .chrome-panel {
-          display:none;
-          width: 760px;
-        }
-
-        .unitygl {
-          width: 640px;
-          height: 330px;
-          margin-top: 120px;
-        }   
-
-      }  
-      
-      @media only screen and (min-device-width: 768px) and (orientation : landscape){
-          .react-controls {
-            bottom: 5px;
-          }
-      }
-      */
      
     </style>
     <title>React App</title>
@@ -150,12 +99,15 @@
         document.getElementsByTagName('head')[0].appendChild(meta);
       }
 
-      const reelsExtension = ".gz";
+      var isSafari = window.safari !== undefined;
+      if (isSafari) {
+        window.location.replace("https://dzo.dvk.mybluehost.me/portfolio/clint-eldridge/react-slot-machine/uncompressed/index.html");
+      }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "./ReelsWebglReact.data" + reelsExtension,
-        frameworkUrl: "./ReelsWebglReact.framework.js" + reelsExtension,
-        codeUrl: "./ReelsWebglReact.wasm" + reelsExtension,
+        dataUrl: "./ReelsWebglReact.data.gz",
+        frameworkUrl: "./ReelsWebglReact.framework.js.gz",
+        codeUrl: "./ReelsWebglReact.wasm.gz",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Slot Machine Demo",
